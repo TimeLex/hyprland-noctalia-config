@@ -16,6 +16,8 @@ It is very tailored to my personal needs, so if you want to use it, you probably
 - `SUPER + SHIFT + S`: move focused window to special workspace
 - `SUPER + CTRL + S`: move focused window to special workspace without following
 
+- `SUPER + ALT + <number>`: swap current workspace and workspace \<number\>
+
 - `SUPER + Q`: close focused window
 - `SUPER + D`: toggle maximize for focused window
 - `SUPER + F`: toggle fullscreen for focused window
