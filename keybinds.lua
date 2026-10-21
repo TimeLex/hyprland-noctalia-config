@@ -27,11 +27,11 @@ hl.bind("Control_L", SelectMonitorForSwap, {
 
 hl.bind("KP_Delete", hl.dsp.exec_cmd("xdg-open https://search.nixos.org/packages?channel=unstable"), {
   repeating = true,
-  description = "Screen: Zoom in"
+  description = "Open NixOS Search"
 })
 hl.bind("KP_Insert", hl.dsp.exec_cmd("code --new-window ~/nixos-config ~/nixos-config/home/timelex.nix"), {
   repeating = true,
-  description = "Screen: Zoom in"
+  description = "Open NixOS Config"
 })
 hl.bind("KP_Prior", function()
   local activeMonitor = hl.get_active_monitor().name
