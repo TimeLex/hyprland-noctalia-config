@@ -111,6 +111,50 @@ function SwapWorkspaces(first, second)
   }))
 end
 
+-- Puts every monitor on an empty workspace behind all occupied ones. A
+-- monitor that already shows such a workspace keeps it. The IDs are computed
+-- up front instead of using "emptyn", which is resolved per dispatch and
+-- could hand two monitors the same workspace or skip past an empty one.
+function FocusEmptyWorkspaceOnAllMonitors()
+  local lastUsed = 0
+  local taken = {}
+  for _, workspace in ipairs(hl.get_workspaces()) do
+    if workspace.id > 0 then
+      taken[workspace.id] = true
+      if workspace.windows > 0 then
+        lastUsed = math.max(lastUsed, workspace.id)
+      end
+    end
+  end
+
+  local targets = {}
+  for _, monitor in ipairs(hl.get_monitors()) do
+    local active = monitor.active_workspace
+    if active == nil or active.windows > 0 or active.id <= lastUsed then
+      table.insert(targets, monitor.name)
+    end
+  end
+
+  local activeMonitor = hl.get_active_monitor().name
+  local free = lastUsed
+  for _, monitorName in ipairs(targets) do
+    repeat
+      free = free + 1
+    until not taken[free]
+    taken[free] = true
+
+    hl.dispatch(hl.dsp.focus({
+      monitor = monitorName
+    }))
+    hl.dispatch(hl.dsp.focus({
+      workspace = free
+    }))
+  end
+  hl.dispatch(hl.dsp.focus({
+    monitor = activeMonitor
+  }))
+end
+
 -- Shifts the given workspace one ID to the right. If that ID is taken, the
 -- workspace there is shifted as well (recursively), so the IDs are renamed
 -- from the first free one backwards.

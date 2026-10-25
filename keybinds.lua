@@ -33,20 +33,7 @@ hl.bind("KP_Insert", hl.dsp.exec_cmd("code --new-window ~/nixos-config ~/nixos-c
   repeating = true,
   description = "Open NixOS Config"
 })
-hl.bind("KP_Prior", function()
-  local activeMonitor = hl.get_active_monitor().name
-  for _, monitor in ipairs(hl.get_monitors()) do
-    hl.dispatch(hl.dsp.focus({
-      monitor = monitor.name
-    }))
-    hl.dispatch(hl.dsp.focus({
-      workspace = "emptyn"
-    }))
-  end
-  hl.dispatch(hl.dsp.focus({
-    monitor = activeMonitor
-  }))
-end, {
+hl.bind("KP_Prior", FocusEmptyWorkspaceOnAllMonitors, {
   description = "Workspace: Focus next empty on all monitors"
 })
 -- code:81 = Numpad 9 (Shift turns KP_Prior into KP_9, so bind the keycode)
