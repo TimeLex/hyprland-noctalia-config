@@ -15,6 +15,10 @@ hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("noctalia msg panel-toggle sessio
   description = "Manage Session"
 })
 
+hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("noctalia msg panel-toggle liamwh/emoji-picker:wide"), {
+  description = "Emoji Picker"
+})
+
 -- Single Key Shortcuts
 
 hl.bind("KP_UP", SwapMonitors, {
