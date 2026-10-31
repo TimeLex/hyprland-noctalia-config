@@ -21,8 +21,8 @@ hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("noctalia msg panel-toggle liamwh/emoj
 
 -- Single Key Shortcuts
 
-hl.bind("KP_UP", SwapMonitors, {
-  description = "Swap Monitors (slect by tapping CTRL on both monitors)"
+hl.bind("KP_UP", hl.dsp.exec_cmd("noctalia msg theme-mode-toggle"), {
+  description = "Toggle Brightness"
 })
 
 hl.bind("Control_L", SelectMonitorForSwap, {
@@ -51,10 +51,10 @@ end, {
   description = "Workspace: Shift right (pushing occupied ones along)"
 })
 
-local brightnessToggleShortcuts = {}
-
 if HOST_NAME == "Desktop-Tim" then
-  table.insert(brightnessToggleShortcuts, "KP_Home")
+  hl.bind("KP_Home", SwapMonitors, {
+    description = "Swap Monitors (slect by tapping CTRL on both monitors)"
+  })
 
   hl.bind("KP_Left", hl.dsp.exec_cmd("playerctl previous"), {
     description = "Media: Previous"
@@ -64,16 +64,6 @@ if HOST_NAME == "Desktop-Tim" then
   })
   hl.bind("KP_Right", hl.dsp.exec_cmd("playerctl next"), {
     description = "Media: Next"
-  })
-end
-
-if HOST_NAME == "Laptop-Tim" then
-  table.insert(brightnessToggleShortcuts, "SUPER + SHIFT + code:201")
-end
-
-for _, shortcut in ipairs(brightnessToggleShortcuts) do
-  hl.bind(shortcut, hl.dsp.exec_cmd("noctalia msg theme-mode-toggle"), {
-    description = "Toggle Brightness"
   })
 end
 
