@@ -29,11 +29,11 @@ hl.bind("Control_L", SelectMonitorForSwap, {
   non_consuming = true,
 })
 
-hl.bind("KP_Delete", hl.dsp.exec_cmd("xdg-open https://search.nixos.org/packages?channel=unstable"), {
+hl.bind("SUPER + KP_Delete", hl.dsp.exec_cmd("xdg-open https://search.nixos.org/packages?channel=unstable"), {
   repeating = true,
   description = "Open NixOS Search"
 })
-hl.bind("KP_Insert", hl.dsp.exec_cmd("code --new-window ~/nixos-config ~/nixos-config/home/timelex.nix"), {
+hl.bind("SUPER + KP_Insert", hl.dsp.exec_cmd("code --new-window ~/nixos-config ~/nixos-config/home/timelex.nix"), {
   repeating = true,
   description = "Open NixOS Config"
 })
