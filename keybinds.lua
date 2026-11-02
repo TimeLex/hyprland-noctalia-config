@@ -1,6 +1,7 @@
 -- ====== General ======
 --
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"), {
+  release = true,
   description = "Toggle Control Center"
 })
 hl.bind("SUPER + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"), {
