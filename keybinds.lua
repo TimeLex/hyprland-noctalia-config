@@ -20,6 +20,10 @@ hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("noctalia msg panel-toggle liamwh/emoj
   description = "Emoji Picker"
 })
 
+hl.bind("SUPER + M", hl.dsp.exec_cmd("noctalia msg panel-toggle profidev/hypr-screen-mirror:panel"), {
+  description = "Screen Mirror"
+})
+
 -- Single Key Shortcuts
 
 hl.bind("KP_UP", hl.dsp.exec_cmd("noctalia msg theme-mode-toggle"), {
