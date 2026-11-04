@@ -69,7 +69,7 @@ hl.window_rule({
 
 hl.window_rule({
   name = "float KCalc",
-  match = { class = "^org.kde.kcalc$" },
+  match = { class = "^qalculate-gtk$" },
   float = true,
 })
 
