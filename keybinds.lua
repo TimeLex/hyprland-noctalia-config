@@ -26,6 +26,8 @@ hl.bind("SUPER + M", hl.dsp.exec_cmd("noctalia msg panel-toggle profidev/hypr-sc
 
 -- Single Key Shortcuts
 
+hl.bind("KP_Begin", hl.dsp.exec_cmd("noctalia msg panel-toggle noctalia/notes:panel"))
+
 hl.bind("KP_UP", hl.dsp.exec_cmd("noctalia msg theme-mode-toggle"), {
   description = "Toggle Brightness"
 })
