@@ -7,10 +7,6 @@ hl.env("QT_QPA_PLATFORMTHEME", "kde")
 -- (only "plasma-applications.menu" does), so KOpenWithDialog etc. list no apps
 hl.env("XDG_MENU_PREFIX", "plasma-")
 
--- for monitor swapping
-hl.env("SWAP_MONITOR_1", "DP-1")
-hl.env("SWAP_MONITOR_2", "DP-2")
-
 browser = "firefox"
 codeEditor = "code"
 fileManager = "dolphin"

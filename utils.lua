@@ -14,26 +14,57 @@ HOST_NAME = get_hostname()
 
 -- Monitor Swap
 
-function SelectMonitorForSwap()
-  local storedSwapMonitor1 = os.getenv("SWAP_MONITOR_1")
-  local currentMonitor = hl.get_active_monitor().name
+-- The two most recently focused (distinct) monitors, newest first.
+local lastMonitors = {}
 
-  if storedSwapMonitor1 == currentMonitor then
+---@param name string|nil
+local function rememberFocusedMonitor(name)
+  if name == nil or name == lastMonitors[1] then
     return
   end
-
-  hl.env("SWAP_MONITOR_2", storedSwapMonitor1)
-  hl.env("SWAP_MONITOR_1", currentMonitor)
-  -- hl.exec_cmd("notify-send " .. "SWAP_MONITOR_1 " .. os.getenv("SWAP_MONITOR_1"))
-  -- hl.exec_cmd("notify-send " .. "SWAP_MONITOR_2 " .. os.getenv("SWAP_MONITOR_2"))
+  lastMonitors[2] = lastMonitors[1]
+  lastMonitors[1] = name
 end
 
+local initialMonitor = hl.get_active_monitor()
+rememberFocusedMonitor(initialMonitor and initialMonitor.name)
+
+-- With exactly two monitors there is nothing to choose, so the other one is
+-- known right away (e.g. after a config reload, before any focus change).
+if lastMonitors[2] == nil then
+  local monitors = hl.get_monitors()
+  if #monitors == 2 then
+    for _, monitor in ipairs(monitors) do
+      if monitor.name ~= lastMonitors[1] then
+        lastMonitors[2] = monitor.name
+      end
+    end
+  end
+end
+
+-- The event fires before Hyprland updates the active monitor, so
+-- hl.get_active_monitor() would still return the previous one here. Use the
+-- newly focused monitor passed to the callback instead.
+-- HL.Monitor is a userdata object, not a table, so read .name directly
+-- (guarded, in case the event ever passes something without that field).
+hl.on("monitor.focused", function(monitor)
+  if type(monitor) == "string" then
+    rememberFocusedMonitor(monitor)
+    return
+  end
+  local ok, name = pcall(function()
+    return monitor.name
+  end)
+  if ok and type(name) == "string" then
+    rememberFocusedMonitor(name)
+  end
+end)
+
 function SwapMonitors()
-  local monitor1 = os.getenv("SWAP_MONITOR_1")
-  local monitor2 = os.getenv("SWAP_MONITOR_2")
+  local monitor1, monitor2 = lastMonitors[1], lastMonitors[2]
 
   if monitor1 == nil or monitor2 == nil then
-    hl.exec_cmd('notify-send "No Monitor Selected" "Select two Monitors by pressing CTRL when they are focused."')
+    hl.exec_cmd('notify-send "Monitor Swap" "Focus two different monitors first."')
     return
   end
 

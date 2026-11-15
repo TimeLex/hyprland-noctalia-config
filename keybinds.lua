@@ -32,10 +32,6 @@ hl.bind("KP_UP", hl.dsp.exec_cmd("noctalia msg theme-mode-toggle"), {
   description = "Toggle Brightness"
 })
 
-hl.bind("Control_L", SelectMonitorForSwap, {
-  non_consuming = true,
-})
-
 hl.bind("SUPER + KP_Delete", hl.dsp.exec_cmd("xdg-open https://search.nixos.org/packages?channel=unstable"), {
   repeating = true,
   description = "Open NixOS Search"
@@ -60,7 +56,7 @@ end, {
 
 if HOST_NAME == "Desktop-Tim" then
   hl.bind("KP_Home", SwapMonitors, {
-    description = "Swap Monitors (slect by tapping CTRL on both monitors)"
+    description = "Swap the two most recently focused monitors"
   })
 
   hl.bind("KP_Left", hl.dsp.exec_cmd("playerctl previous"), {
