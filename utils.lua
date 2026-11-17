@@ -150,7 +150,7 @@ function FocusEmptyWorkspaceOnAllMonitors()
   local lastUsed = 0
   local taken = {}
   for _, workspace in ipairs(hl.get_workspaces()) do
-    if workspace.id > 0 then
+    if workspace.id ~= nil and workspace.id > 0 then
       taken[workspace.id] = true
       if workspace.windows > 0 then
         lastUsed = math.max(lastUsed, workspace.id)
@@ -161,7 +161,7 @@ function FocusEmptyWorkspaceOnAllMonitors()
   local targets = {}
   for _, monitor in ipairs(hl.get_monitors()) do
     local active = monitor.active_workspace
-    if active == nil or active.windows > 0 or active.id <= lastUsed then
+    if active == nil or active.id == nil or active.windows > 0 or active.id <= lastUsed then
       table.insert(targets, monitor.name)
     end
   end
