@@ -7,5 +7,6 @@ hl.on("hyprland.start", function()
 
   hl.exec_cmd(onscreen_keyboard)
 
-  hl.exec_cmd("noctalia")
+  -- LC_NUMERIC=en_US.UTF makes that "." is interpreted as a comma for calculations
+  hl.exec_cmd("env LC_NUMERIC=en_US.UTF-8 noctalia")
 end)
