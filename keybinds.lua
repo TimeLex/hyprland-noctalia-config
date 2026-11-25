@@ -20,6 +20,13 @@ hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("noctalia msg panel-toggle liamwh/emoj
   description = "Emoji Picker"
 })
 
+-- Copies the 2FA code and pastes it via CTRL + V into the active window
+-- (send_shortcut bypasses the still held SUPER key)
+hl.bind("SUPER + A",
+  hl.dsp.exec_cmd([[pass otp -c otp/ovgu && hyprctl dispatch 'hl.dsp.send_shortcut({ mods = "CTRL", key = "v" })']]), {
+    description = "Paste 2FA Code (pass-otp)"
+  })
+
 hl.bind("SUPER + M", hl.dsp.exec_cmd("noctalia msg panel-toggle profidev/hypr-screen-mirror:panel"), {
   description = "Screen Mirror"
 })
